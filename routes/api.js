@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Ninja = require('../models/ninja')
 
 //get ninja list from db
 router.get('/ninjas', function(req, res){
@@ -11,14 +12,25 @@ router.post('/ninjas', function(req, res){
     //req data is posted from POSTMAN in viewport
     //from body parser to get req data
     console.log(req.body)
-    res.send({
-        type: 'POST',
-        //to view the req data...in postman
-        name: req.body.name,
-        rank: req.body.rank
-    })
+    // res.send({
+    //     type: 'POST',
+    //     //to view the req data...in postman
+    //     name: req.body.name,
+    //     rank: req.body.rank
+    // })
+
+    //post to db by instantiating Ninja model
+    //option 1...save
+    // var ninja = new Ninja(req.body)
+    // ninja.save()//save to db
+
+    //option 2...create(simpler)
+    //create returns Promise that returns ninja
+    Ninja.create(req.body)
+        .then(ninja => res.send(ninja))
+    
 })
-//update nninja list
+//update ninja list
 router.put('/ninjas/:id', function(req, res){
     res.send({type: 'PUT'})
 })
