@@ -1,5 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+
+//connect to mongodb..ninjago is db name(created if nonexistent)
+mongoose.connect('mongodb://localhost/ninjago')
+//if mongoose promise deprecated...we can override with global Promise
+mongoose.Promise = global.Promise;
 
 //set up express app
 const app = express();
