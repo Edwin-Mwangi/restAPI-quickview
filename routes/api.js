@@ -50,6 +50,7 @@ router.post('/ninjas', function(req, res, next){
         .then(ninja => res.send(ninja))
         .catch(next)
 })
+
 //update ninja list
 router.put('/ninjas/:id', function(req, res){
     //req.body is 2nd arg to update existing db doc
@@ -63,6 +64,7 @@ router.put('/ninjas/:id', function(req, res){
             .then(ninja => res.send(ninja))
     });
 });
+
 //delete a ninja
 router.delete('/ninjas/:id', function(req, res){
     // console.log(req.params.id);
