@@ -4,9 +4,25 @@ const Ninja = require('../models/ninja')
 
 //get ninja list from db
 router.get('/ninjas', function(req, res){
-    Ninja.find({})
-        .then(ninja => res.send(ninja))
+    // Ninja.find({})
+    //     .then(ninja => res.send(ninja))
     //res.send({type: 'GET'})
+
+    //to query lat&long from db
+    //returns ninjas that are in radius of 100km from points given
+    Ninja.geoNear(
+        {
+            type:'Point', 
+            coordinates: [
+                //parsefloat converts str to num(num array defined in Schema)
+                parseFloat(req.query.lng),
+                parseFloat(req.query.lat)
+            ]
+        },
+        //radius in metres and whether its a sphere(2dsphere)
+        { maxDistance: 100000, spherical :true}
+    )
+        .then(ninjas => res.send(ninjas))
 })
 
 //add a new ninja
