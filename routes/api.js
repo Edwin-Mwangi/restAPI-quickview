@@ -8,7 +8,8 @@ router.get('/ninjas', function(req, res){
 })
 
 //add a new ninja
-router.post('/ninjas', function(req, res){
+//next used in catch() to goto next middleware
+router.post('/ninjas', function(req, res, next){
     //req data is posted from POSTMAN in viewport
     //from body parser to get req data
     console.log(req.body)
@@ -26,9 +27,10 @@ router.post('/ninjas', function(req, res){
 
     //option 2...create(simpler)
     //create returns Promise that returns ninja
+    //err handled check index.js for middleware 
     Ninja.create(req.body)
         .then(ninja => res.send(ninja))
-    
+        .catch(next)
 })
 //update ninja list
 router.put('/ninjas/:id', function(req, res){

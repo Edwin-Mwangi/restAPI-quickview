@@ -20,6 +20,14 @@ app.use(bodyParser.json());
 //routes will be used inside /api dir ie '/api/ninjas'
 app.use('/api', require('./routes/api'));
 
+//error handling middleware.
+//next(in catch) used to run this next middleware as err stops code 
+app.use(function(err,req,res,next){
+    //err is big obj with props such as message
+    // console.log(err)
+    res.status(422).send({error: err.message})
+})
+
 //listen for requests..on port provided by hosting platform or 4000
 app.listen(process.env.port || 4000, function(){
     console.log('now listening for requests')
