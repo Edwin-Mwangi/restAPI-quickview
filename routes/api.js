@@ -34,13 +34,22 @@ router.post('/ninjas', function(req, res, next){
 })
 //update ninja list
 router.put('/ninjas/:id', function(req, res){
-    res.send({type: 'PUT'})
-})
+    //req.body is 2nd arg to update existing db doc
+    Ninja.findByIdAndUpdate({_id: req.params.id}, req.body)
+    .then(ninja => res.send(ninja))
+
+    //ninja sent above is older version so to ensure new one
+    Ninja.findByIdAndUpdate({_id: req.params.id}, req.body)
+    .then(() => { 
+        Ninja.findOne({_id: req.params.id})
+            .then(ninja => res.send(ninja))
+    });
+});
 //delete a ninja
 router.delete('/ninjas/:id', function(req, res){
     // console.log(req.params.id);
     Ninja.findByIdAndRemove({_id: req.params.id})
         .then(ninja => res.send(ninja))//to DOM/POSTMAN 
-})
+});
 
 module.exports = router;
