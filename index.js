@@ -10,6 +10,9 @@ mongoose.Promise = global.Promise;
 //set up express app
 const app = express();
 
+//set up public files...to view static files
+app.use(express.static('public'));
+
 //3rd party middleware(middleware is anything running b2n req and res)
 //body parser used to acess data from POSt request..check post method in API
 //comes b4 route Handler to attach json data to req obj b4 it gets there
