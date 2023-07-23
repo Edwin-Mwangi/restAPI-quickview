@@ -21,7 +21,7 @@ const NinjaSchema = new Schema({
     //Obj literal unecessary unless multiple properties
     name: {
         type:String,
-        required: [true, 'Name is required']
+        required: [true, 'Name is required']//2nd msg shown if u dont include name.
     },
     rank: {
         type: String,
